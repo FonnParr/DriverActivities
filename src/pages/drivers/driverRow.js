@@ -1,38 +1,6 @@
-import {activityTypes} from "./activityTypes"
-
-const getTraceDuration = (trace)=>{
-    return trace.activity.reduce(
-        (total, activity)=>total + activity.duration, 0)
-}
-
-const getTraceDurationByType = (trace, type)=>{
-    return trace.activity.reduce(
-        (total, activity)=>
-        total + (activity.type === type ? activity.duration : 0), 0)
-}
-
-
-const getDriverDuration = (driver)=>{
-    return driver.traces.reduce(
-        (total, trace)=>total + getTraceDuration(trace), 0)
-}
-
-const getDriverDurationByType = (driver, type)=>{
-    return driver.traces.reduce(
-        (total, trace)=>total + getTraceDurationByType(trace, type), 0)
-}
-
-const areEquivelant = (date1, date2)=>{
-    return new Date(date1).valueOf() === new Date(date2).valueOf() 
-}
-
-const isActive = (driver, date)=>{
-    return driver.traces.some(trace=>areEquivelant(date, trace.date))
-}
-
-const addDays = (date, days)=>{
-    return new Date(date).getTime()+(days*24*60*60*1000)
-}
+import { addDays } from "../../common/helper"
+import { isActive } from "./helper"
+import ActivityBreakdown from "./breakdown"
 
 export default function DriverRow({driver}){
     const {
@@ -66,22 +34,4 @@ export default function DriverRow({driver}){
         <td><div className={sat ? "day_active" : "day_inactive"} /></td>
         <td><div className={sun ? "day_active" : "day_inactive"} /></td>
     </tr>)
-}
-
-const ActivityBreakdown = ({driver})=>{    
-    const totalActivityDuration = getDriverDuration(driver)
-    return (
-        <>
-            {activityTypes.map(type=>
-                <ActivityByType driver={driver} type={type}/>
-            )}
-            <td className="info" align="right">{totalActivityDuration}</td>
-        </>
-    )
-}
-
-const ActivityByType = ({driver, type})=>{    
-    const duration = getDriverDurationByType(driver, type.toLowerCase())
-    return  <td className="info" align="right">{duration}</td>
-        
 }
