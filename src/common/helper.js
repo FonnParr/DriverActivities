@@ -3,7 +3,7 @@ const millisecondsPerDay = 24 * 60 * 60 * 1000
 
 /**
  * Generate a new date by adding the specified number of days to the provided date
- * @param {Dat | string} date - the start date
+ * @param {Date | string} date - the start date
  * @param {number} days - the number of days to add
  * @returns {Date}
  */
