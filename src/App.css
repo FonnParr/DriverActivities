@@ -6,12 +6,12 @@
   display: flex; 
 }
 
-
 .App-header{
 
   border: 1px solid black;
   margin: 2px;
 }
+
 .App-logo {
   height: 5vmin;
   pointer-events: none;
@@ -54,6 +54,11 @@ main{
 .small th{
   font-size: x-small;
   font-weight: normal;
+}
+
+td{
+  padding-right:4px;
+  padding-left:4px;
 }
 
 

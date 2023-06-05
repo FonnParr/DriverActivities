@@ -1,9 +1,11 @@
 import { useState } from "react"
 import drivers from "../../data/drivers.json"
 import DriverRow from "./driverRow"
+import {activityTypes} from "./activityTypes"
 import SearchBox from "../../common/searchBox"
 
-const emptycolumnHeaderCount = 3
+const emptycolumnHeaderCount = 2
+
 
 export default function Activity(){
 
@@ -36,6 +38,8 @@ export default function Activity(){
                 <thead>
                     <tr className="small">
                         <th colSpan={emptycolumnHeaderCount} />
+                        {activityTypes.map(type=><th>{type}</th>)}
+                        <th>Total</th>
                         <th>Mon</th>
                         <th>Tue</th>
                         <th>Wed</th>
