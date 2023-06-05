@@ -7,6 +7,23 @@ import SearchBox from "../../common/searchBox"
 const emptycolumnHeaderCount = 2
 const weekday = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 
+/**
+ * Determine if either the driver's name or vehicle registration contain the filter text
+ * @param {any} driver
+ * @param {string} filterText
+ * @returns {Boolean}
+ */
+const driverFilter = (driver, filterText) => {
+    if (!filterText)
+        return true
+
+    if (driver.vehicleRegistration.toLocaleLowerCase().includes(filterText.toLocaleLowerCase()))
+        return true
+
+    const lowerFullName = [driver.forename, driver.surname].join(" ").toLocaleLowerCase()
+    return lowerFullName.includes(filterText.toLocaleLowerCase())
+}
+
 export default function Activity({ startDate=new Date("2021-2-1"), days=7 }) {
     
     const [filterText, setFilterText] = useState("")
@@ -14,16 +31,7 @@ export default function Activity({ startDate=new Date("2021-2-1"), days=7 }) {
     if (!drivers.data)
         return <div>No driver data</div>
 
-    const visibleDrivers = drivers.data.filter(driver => {
-        if (!filterText)
-            return true
-
-        if (driver.vehicleRegistration.toLocaleLowerCase().includes(filterText.toLocaleLowerCase()))
-            return true
-
-        const lowerFullName = [driver.forename, driver.surname].join(" ").toLocaleLowerCase()
-        return lowerFullName.includes(filterText.toLocaleLowerCase())
-    })
+    const visibleDrivers = filterText ? drivers.data.filter(driver=>driverFilter(driver, filterText)) : drivers.data
 
     let activeDays = []
     for (let i = 0; i < days; i++) {
