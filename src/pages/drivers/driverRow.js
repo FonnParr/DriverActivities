@@ -2,14 +2,14 @@ import { addDays } from "../../common/helper"
 import { isActive } from "./helper"
 import ActivityBreakdown from "./breakdown"
 
-export default function DriverRow({driver}){
+export default function DriverRow({ driver }) {
     const {
         surname,
         forename,
         vehicleRegistration
     } = driver
 
-    const fullName = [forename,surname].join(" ")
+    const fullName = [forename, surname].join(" ")
 
 
     const startDate = new Date("2021-2-1")
@@ -22,16 +22,16 @@ export default function DriverRow({driver}){
     const sun = isActive(driver, addDays(startDate, 6))
 
     return (
-    <tr className="DriverRow">
-        <td className="info">{fullName}</td>
-        <td className="info">{vehicleRegistration}</td>
-        <ActivityBreakdown driver={driver}/>
-        <td><div className={mon ? "day_active" : "day_inactive"} /></td>
-        <td><div className={tue ? "day_active" : "day_inactive"} /></td>
-        <td><div className={wed ? "day_active" : "day_inactive"} /></td>
-        <td><div className={thu ? "day_active" : "day_inactive"} /></td>
-        <td><div className={fri ? "day_active" : "day_inactive"} /></td>
-        <td><div className={sat ? "day_active" : "day_inactive"} /></td>
-        <td><div className={sun ? "day_active" : "day_inactive"} /></td>
-    </tr>)
+        <tr className="DriverRow">
+            <td className="info">{fullName}</td>
+            <td className="info">{vehicleRegistration}</td>
+            <ActivityBreakdown driver={driver} />
+            <td><div className={mon ? "day_active" : "day_inactive"} /></td>
+            <td><div className={tue ? "day_active" : "day_inactive"} /></td>
+            <td><div className={wed ? "day_active" : "day_inactive"} /></td>
+            <td><div className={thu ? "day_active" : "day_inactive"} /></td>
+            <td><div className={fri ? "day_active" : "day_inactive"} /></td>
+            <td><div className={sat ? "day_active" : "day_inactive"} /></td>
+            <td><div className={sun ? "day_active" : "day_inactive"} /></td>
+        </tr>)
 }

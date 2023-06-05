@@ -1,12 +1,11 @@
+export default function SearchBox({ onChange, ...props }) {
 
-export default function SearchBox ({onChange, ...props}){
-
-    const changed=(event)=>{
+    const changed = (event) => {
         onChange(event.target.value)
     }
 
-    return (<input 
-                onChange={changed}
-                {...props}/>
+    return (<input
+        onChange={changed}
+        {...props} />
     )
 }

@@ -11,22 +11,22 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />     
+        <img src={logo} className="App-logo" alt="logo" />
       </header>
       <div className='pageBody'>
         <nav>
-          <Menu/>
+          <Menu />
         </nav>
         <main>
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Home />}/>
-            <Route path="/about" element={<About />} />
-            <Route path="/drivers" element={<Activity />} />
-            <Route path="/vehicles" element={<Vehicles />} />
-            <Route path="*" element={<div >404</div>} />
-          </Routes>
-        </BrowserRouter>
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/drivers" element={<Activity />} />
+              <Route path="/vehicles" element={<Vehicles />} />
+              <Route path="*" element={<div >404</div>} />
+            </Routes>
+          </BrowserRouter>
         </main>
       </div>
     </div>
