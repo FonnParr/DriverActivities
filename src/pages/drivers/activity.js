@@ -5,10 +5,10 @@ import { activityTypes } from "./activityTypes"
 import SearchBox from "../../common/searchBox"
 
 const emptycolumnHeaderCount = 2
+const weekday = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
 
-
-export default function Activity() {
-
+export default function Activity({ startDate=new Date("2021-2-1"), days=7 }) {
+    
     const [filterText, setFilterText] = useState("")
 
     if (!drivers.data)
@@ -25,6 +25,11 @@ export default function Activity() {
         return lowerFullName.includes(filterText.toLocaleLowerCase())
     })
 
+    let activeDays = []
+    for (let i = 0; i < days; i++) {
+        activeDays.push(weekday[(startDate.getDay() + i) % 7])
+    }
+
     return (
         <div>
             <SearchBox
@@ -33,6 +38,8 @@ export default function Activity() {
                 value={filterText}
                 onChange={setFilterText} />
 
+            <span className="description">{days} day driver activity log starting on {startDate.toDateString()}</span>
+
             {visibleDrivers.length ?
                 <table>
                     <thead>
@@ -40,17 +47,16 @@ export default function Activity() {
                             <th colSpan={emptycolumnHeaderCount} />
                             {activityTypes.map(type => <th>{type}</th>)}
                             <th>Total</th>
-                            <th>Mon</th>
-                            <th>Tue</th>
-                            <th>Wed</th>
-                            <th>Thu</th>
-                            <th>Fri</th>
-                            <th>Sat</th>
-                            <th>Sun</th>
+                            {activeDays.map(day=><th>{day}</th>)}
                         </tr>
                     </thead>
                     <tbody>
-                        {visibleDrivers.map(driver => <DriverRow key={driver.driverID} driver={driver} />)}
+                        {visibleDrivers.map(driver =>
+                            <DriverRow
+                                key={driver.driverID}
+                                driver={driver}
+                                startDate={startDate}
+                                days={days} />)}
                     </tbody>
                 </table>
                 : <div>No drivers match "{filterText}"</div>
@@ -58,6 +64,3 @@ export default function Activity() {
         </div>
     )
 }
-
-
-
