@@ -24,6 +24,11 @@ const driverFilter = (driver, filterText) => {
     return lowerFullName.includes(filterText.toLocaleLowerCase())
 }
 
+/**
+ * Component for the Drivers' activity logs
+ * @param {Date?} startDate - the first date to appear
+ * @param {number?} days - the number of days to show on the logs
+ */
 export default function Activity({ startDate=new Date("2021-2-1"), days=7 }) {
     
     const [filterText, setFilterText] = useState("")
