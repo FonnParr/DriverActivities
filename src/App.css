@@ -1,0 +1,60 @@
+.App {
+  text-align: default;
+}
+
+.pageBody{  
+  display: flex; 
+}
+
+
+.App-header{
+
+  border: 1px solid black;
+  margin: 2px;
+}
+.App-logo {
+  height: 5vmin;
+  pointer-events: none;
+  padding: 1rem;
+}
+
+nav{
+  width: 100px;
+  border: 1px solid black;
+  margin: 2px;
+  padding: 1rem;
+  font-size: large;
+}
+
+main{
+  border: 1px solid black;
+  margin: 2px;
+  padding: 1rem;
+}
+
+.DriverRow .info{
+  border: 1px solid black;
+  margin: 4px;
+}
+
+
+.day_active{
+  background-color:green;
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid black;
+}
+
+.day_inactive{
+  width: 2rem;
+  height: 2rem;
+  border: 1px solid black;
+}
+
+.small th{
+  font-size: x-small;
+  font-weight: normal;
+}
+
+
+
