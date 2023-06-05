@@ -1,12 +1,25 @@
+import {activityTypes} from "./activityTypes"
 
 const getTraceDuration = (trace)=>{
     return trace.activity.reduce(
         (total, activity)=>total + activity.duration, 0)
 }
 
+const getTraceDurationByType = (trace, type)=>{
+    return trace.activity.reduce(
+        (total, activity)=>
+        total + (activity.type === type ? activity.duration : 0), 0)
+}
+
+
 const getDriverDuration = (driver)=>{
     return driver.traces.reduce(
         (total, trace)=>total + getTraceDuration(trace), 0)
+}
+
+const getDriverDurationByType = (driver, type)=>{
+    return driver.traces.reduce(
+        (total, trace)=>total + getTraceDurationByType(trace, type), 0)
 }
 
 const areEquivelant = (date1, date2)=>{
@@ -30,7 +43,6 @@ export default function DriverRow({driver}){
 
     const fullName = [forename,surname].join(" ")
 
-    const totalActivityDuration = getDriverDuration(driver)
 
     const startDate = new Date("2021-2-1")
     const mon = isActive(driver, startDate)
@@ -45,7 +57,7 @@ export default function DriverRow({driver}){
     <tr className="DriverRow">
         <td className="info">{fullName}</td>
         <td className="info">{vehicleRegistration}</td>
-        <td className="info" align="right">{totalActivityDuration}</td>
+        <ActivityBreakdown driver={driver}/>
         <td><div className={mon ? "day_active" : "day_inactive"} /></td>
         <td><div className={tue ? "day_active" : "day_inactive"} /></td>
         <td><div className={wed ? "day_active" : "day_inactive"} /></td>
@@ -54,4 +66,22 @@ export default function DriverRow({driver}){
         <td><div className={sat ? "day_active" : "day_inactive"} /></td>
         <td><div className={sun ? "day_active" : "day_inactive"} /></td>
     </tr>)
+}
+
+const ActivityBreakdown = ({driver})=>{    
+    const totalActivityDuration = getDriverDuration(driver)
+    return (
+        <>
+            {activityTypes.map(type=>
+                <ActivityByType driver={driver} type={type}/>
+            )}
+            <td className="info" align="right">{totalActivityDuration}</td>
+        </>
+    )
+}
+
+const ActivityByType = ({driver, type})=>{    
+    const duration = getDriverDurationByType(driver, type.toLowerCase())
+    return  <td className="info" align="right">{duration}</td>
+        
 }
